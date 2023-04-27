@@ -14,12 +14,11 @@ namespace DataDog;
  */
 class BatchedDogStatsd extends DogStatsd
 {
-    private static $buffer = array();
-    private static $bufferLength = 0;
     public static $maxBufferLength = 50;
+    private static $buffer = [];
+    private static $bufferLength = 0;
 
-
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // by default the telemetry is enabled for BatchedDogStatsd
         if (!isset($config["disable_telemetry"])) {
@@ -28,14 +27,23 @@ class BatchedDogStatsd extends DogStatsd
         parent::__construct($config);
     }
 
+    public function __destruct()
+    {
+        if (static::$bufferLength) {
+            $this->flushBuffer();
+        }
+
+        parent::__destruct();
+    }
+
     /**
      * @param string $message
      */
     public function report($message)
     {
         static::$buffer[] = $message;
-        static::$bufferLength++;
-        if (static::$bufferLength > static::$maxBufferLength) {
+
+        if (++static::$bufferLength > static::$maxBufferLength) {
             $this->flushBuffer();
         }
     }
@@ -51,8 +59,8 @@ class BatchedDogStatsd extends DogStatsd
 
     public function flushBuffer()
     {
-        $this->flush(join("\n", static::$buffer));
-        static::$buffer = array();
+        $this->flush(implode("\n", static::$buffer));
+        static::$buffer = [];
         static::$bufferLength = 0;
     }
 }

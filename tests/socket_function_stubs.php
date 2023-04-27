@@ -19,6 +19,7 @@ namespace DataDog;
  * @param int $domain
  * @param int $type
  * @param int $protocol
+ *
  * @return resource
  */
 function socket_create($domain, $type, $protocol)
@@ -58,7 +59,7 @@ function socket_set_nonblock($socket)
  * @param string $addr
  * @param int $port
  */
-function socket_sendto($socket, $buf, $len, $flags, $addr, $port=null)
+function socket_sendto($socket, $buf, $len, $flags, $addr, $port = null)
 {
     global $socketSpy;
 
@@ -75,4 +76,16 @@ function socket_close($socket)
     global $socketSpy;
 
     $socketSpy->socketCloseWasCalled($socket);
+}
+
+/**
+ * Stub of built in global PHP function socket_last_error
+ *
+ * @param resource $socket
+ */
+function socket_last_error($socket)
+{
+    global $socketSpy;
+
+    $socketSpy->socketLastErrorWasCalled($socket);
 }

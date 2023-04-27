@@ -7,7 +7,7 @@ namespace DataDog\TestHelpers;
  *
  * Useful for recording calls to stubbed global socket functions built into PHP
  *
- * @see \DataDog\SocketSpyTestCase
+ * @see     \DataDog\SocketSpyTestCase
  * @package DataDog
  */
 class SocketSpy
@@ -15,27 +15,32 @@ class SocketSpy
     /**
      * @var array
      */
-    public $argsFromSocketCreateCalls = array();
+    public $argsFromSocketCreateCalls = [];
 
     /**
      * @var array
      */
-    public $socketCreateReturnValues = array();
+    public $socketCreateReturnValues = [];
 
     /**
      * @var array
      */
-    public $argsFromSocketSetNonblockCalls = array();
+    public $argsFromSocketSetNonblockCalls = [];
 
     /**
      * @var array
      */
-    public $argsFromSocketSendtoCalls = array();
+    public $argsFromSocketSendtoCalls = [];
 
     /**
      * @var array
      */
-    public $argsFromSocketCloseCalls = array();
+    public $argsFromSocketCloseCalls = [];
+
+    /**
+     * @var array
+     */
+    public $argsFromSocketLastErrorCalls = [];
 
     /**
      * var boolean
@@ -49,11 +54,11 @@ class SocketSpy
      */
     public function socketCreateWasCalledWithArgs($domain, $type, $protocol)
     {
-        $this->argsFromSocketCreateCalls[] = array(
+        $this->argsFromSocketCreateCalls[] = [
             $domain,
             $type,
-            $protocol
-        );
+            $protocol,
+        ];
     }
 
     /**
@@ -89,17 +94,18 @@ class SocketSpy
         $port
     ) {
         if ($this->returnErrorOnSend === true) {
-          return false;
+            return false;
         }
 
-        $this->argsFromSocketSendtoCalls[] = array(
+        $this->argsFromSocketSendtoCalls[] = [
             $socket,
             $buf,
             $len,
             $flags,
             $addr,
-            $port
-        );
+            $port,
+        ];
+
         return $len;
     }
 
@@ -109,5 +115,13 @@ class SocketSpy
     public function socketCloseWasCalled($socket)
     {
         $this->argsFromSocketCloseCalls[] = $socket;
+    }
+
+    /**
+     * @param resource $socket
+     */
+    public function socketLastErrorWasCalled($socket)
+    {
+        $this->argsFromSocketLastErrorCalls[] = $socket;
     }
 }

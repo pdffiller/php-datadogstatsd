@@ -8,21 +8,6 @@ use DataDog\TestHelpers\SocketSpyTestCase;
 
 class BatchedDogStatsdTest extends SocketSpyTestCase
 {
-    protected function set_up()
-    {
-        parent::set_up();
-
-        // Flush the buffer to reset state for next test
-        BatchedDogStatsd::$maxBufferLength = 50;
-        $batchedDog = new BatchedDogStatsd();
-        $batchedDog->flushBuffer();
-
-        // Reset the SocketSpy state to get clean assertions.
-        // @see \DataDog\SocketSpy
-        global $socketSpy;
-        $socketSpy = new SocketSpy();
-    }
-
     public function testReportDoesNotSendIfBufferNotFilled()
     {
         $batchedDog = new BatchedDogStatsd();
@@ -71,7 +56,22 @@ class BatchedDogStatsdTest extends SocketSpyTestCase
             $expectedUdpMessageOnceSent,
             $spy->argsFromSocketSendtoCalls[0][1],
             'Should concatenate UDP messages with newlines',
-            array("metrics" => 3)
+            ["metrics" => 3]
         );
+    }
+
+    protected function set_up()
+    {
+        parent::set_up();
+
+        // Flush the buffer to reset state for next test
+        BatchedDogStatsd::$maxBufferLength = 50;
+        $batchedDog = new BatchedDogStatsd();
+        $batchedDog->flushBuffer();
+
+        // Reset the SocketSpy state to get clean assertions.
+        // @see \DataDog\SocketSpy
+        global $socketSpy;
+        $socketSpy = new SocketSpy();
     }
 }
