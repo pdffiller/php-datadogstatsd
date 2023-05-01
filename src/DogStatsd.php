@@ -15,7 +15,7 @@ class DogStatsd
 
     const DEFAULT_MAX_ATTEMPTS_TO_SEND = 1;
     // phpcs:enable
-    public static $version = '1.5.6';
+    public static $version = '1.6.0';
     private static $eventUrl = '/api/v1/events';
     /**
      * @var bool|resource|\Socket
