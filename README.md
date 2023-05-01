@@ -7,7 +7,7 @@
 
 This is an extremely simple PHP [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/?code-lang=php) client.
 
-**Requires PHP >= 5.6.0.**
+**Requires PHP >= 7.4.0.**
 
 See [CHANGELOG.md](CHANGELOG.md) for changes.
 
@@ -18,7 +18,7 @@ See [CHANGELOG.md](CHANGELOG.md) for changes.
 Add the following to your `composer.json`:
 
 ```
-"datadog/php-datadogstatsd": "1.5.*"
+"datadog/php-datadogstatsd": "1.6.*"
 ```
 The first version shipped in composer is *0.0.3*
 

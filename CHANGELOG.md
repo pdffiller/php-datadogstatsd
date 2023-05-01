@@ -3,6 +3,13 @@ CHANGELOG
 
 [//]: # (comment: Don't forget to update src/DogStatsd.php:DogStatsd::version when releasing a new version)
 
+# 1.6.0 / 2023-05-1
+* Lazy creation of sockets
+* Resend on socket errors. Default max attempts is 2. Can be configured with `max_attempts_to_send` option.
+* Closing the socket in the destructor
+* Fix potential loss of last buffer in BatchedDogStatsd
+* php version >=7.4
+
 # 1.5.6 / 2023-01-3
 
 * Fix warnings to support PHP 8.2
