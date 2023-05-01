@@ -1,5 +1,5 @@
 {
-    "name": "datadog/php-datadogstatsd",
+    "name": "pdffiller/php-datadogstatsd",
     "type": "library",
     "description": "An extremely simple PHP datadogstatsd client",
     "keywords": ["datadog", "monitoring", "logging", "statsd", "error-reporting", "check", "health"],
@@ -22,11 +22,8 @@
         "ext-sockets": "*"
     },
     "support": {
-        "email": "package@datadoghq.com",
-        "irc": "irc://irc.freenode.net/datadog",
-        "issues": "https://github.com/DataDog/php-datadogstatsd/issues",
-        "source": "https://github.com/DataDog/php-datadogstatsd",
-        "chat": "https://chat.datadoghq.com/"
+        "issues": "https://github.com/pdffiller/php-datadogstatsd/issues",
+        "source": "https://github.com/pdffiller/php-datadogstatsd"
     },
     "autoload": {
         "psr-4": {
