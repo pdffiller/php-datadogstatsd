@@ -445,7 +445,7 @@ class DogStatsd
         $title_length = strlen($title);
         $text_length = strlen($textField) - 1;
 
-        ++$this->events_sent;
+        $this->events_sent++;
         $this->report('_e{' . $title_length . ',' . $text_length . '}:' . $fields);
 
         return true;
