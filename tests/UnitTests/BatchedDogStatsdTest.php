@@ -38,18 +38,23 @@ class BatchedDogStatsdTest extends SocketSpyTestCase
         $batchedDog->gauge($udpMessage . '2', 21);
 
         $spy = $this->getSocketSpy();
+
         $this->assertSame(
             0,
             count($spy->argsFromSocketSendtoCalls),
             'Should not have sent any message until the buffer is full'
         );
-
         $batchedDog->gauge($udpMessage . '3', 21);
 
         $this->assertSame(
             1,
             count($spy->argsFromSocketSendtoCalls),
             'Should send all buffered UDP messages once buffer is filled'
+        );
+        $this->assertSame(
+            1,
+            count($spy->argsFromSocketCloseCalls),
+            'Socket was not closed'
         );
 
         $this->assertSameTelemetry(

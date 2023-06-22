@@ -14,6 +14,7 @@ namespace DataDog;
  */
 class BatchedDogStatsd extends DogStatsd
 {
+    public static $maxCountMessagesOnSocketSession = 0;
     public static $maxBufferLength = 50;
     private static $buffer = [];
     private static $bufferLength = 0;
