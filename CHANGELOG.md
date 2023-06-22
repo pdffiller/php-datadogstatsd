@@ -3,6 +3,10 @@ CHANGELOG
 
 [//]: # (comment: Don't forget to update src/DogStatsd.php:DogStatsd::version when releasing a new version)
 
+# 1.6.1 / 2023-06-22
+* Added message counter
+* Close socket after `$maxCountMessagesOnSocketSession` number of messages sent
+
 # 1.6.0 / 2023-05-1
 * Lazy creation of sockets
 * Resend on socket errors. Default max attempts is 2. Can be configured with `max_attempts_to_send` option.

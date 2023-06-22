@@ -15,7 +15,7 @@ class DogStatsd
 
     const DEFAULT_MAX_ATTEMPTS_TO_SEND = 1;
     // phpcs:enable
-    public static $version = '1.6.0';
+    public static $version = '1.6.1';
     private static $eventUrl = '/api/v1/events';
     /**
      * @var bool|resource|\Socket
@@ -86,6 +86,9 @@ class DogStatsd
 
     // Used for the telemetry tags
     private $packets_dropped;
+
+    private $countSentMessages = 0;
+    public static $maxCountMessagesOnSocketSession = 50;
 
     /**
      * DogStatsd constructor, takes a configuration array. The configuration can take any of the following values:
@@ -508,6 +511,9 @@ class DogStatsd
                     return $this->sendMessage($message, ++$attempt);
                 }
             }
+        } elseif (++$this->countSentMessages > static::$maxCountMessagesOnSocketSession) {
+            $this->closeSocket();
+            $this->countSentMessages = 0;
         }
 
         return $res;
